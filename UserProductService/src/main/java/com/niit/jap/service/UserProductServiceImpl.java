@@ -4,8 +4,10 @@ import com.niit.jap.domain.Product;
 import com.niit.jap.domain.User;
 import com.niit.jap.exception.ProductNotFoundException;
 import com.niit.jap.exception.UserNotFoundException;
+import com.niit.jap.proxy.UserProxy;
 import com.niit.jap.repository.UserProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -15,13 +17,20 @@ import java.util.List;
 public class UserProductServiceImpl implements UserProductService{
     @Autowired
     public UserProductRepository userProductRepository;
+    @Autowired
+    public UserProxy userProxy;
 
     @Override
     public User addUser(User user) throws UserNotFoundException {
         if (userProductRepository.findById(user.getUserId()).isPresent()){
             throw new UserNotFoundException();
         }
-        return userProductRepository.insert(user);
+        User savedUser = userProductRepository.save(user);
+        if (!(savedUser.getEmailId().isEmpty())){
+            ResponseEntity responseEntity = userProxy.saveUser(user);
+            System.out.println(responseEntity.getBody());
+        }
+        return savedUser;
     }
 
     @Override

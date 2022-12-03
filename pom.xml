@@ -32,6 +32,8 @@
 	<modules>
 		<module>UserAuthentication</module>
 		<module>UserProductService</module>
+		<module>demoAPIGatWay</module>
+		<module>C15_Demo_Sprint_1</module>
 	</modules>
 
 	<build>

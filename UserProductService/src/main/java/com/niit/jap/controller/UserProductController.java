@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/userproductapi/user")
+@RequestMapping("/userproductapi")
 public class UserProductController {
     private UserProductService userProductService;
     private ResponseEntity<?>responseEntity;
